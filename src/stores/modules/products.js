@@ -17,7 +17,7 @@ const mutations = {
         state.products.splice(index,1)
     },
     addProduct(state,payload){
-        state.products.push(payload)
+        state.products.unshift(payload)
     },
     editProduct(state,payload){
         let index = state.products.findIndex(v=>v.barCode==payload.barCode)
@@ -42,11 +42,12 @@ const actions = {
     })
   },
   addProduct({commit,rootState},data){
-    product.addProduct({...data,userId:rootState.acount.userId},({code,msg,picPath})=>{
+    product.addProduct({...data,userId:rootState.acount.userId},({code,msg,backData})=>{
       if(code==1){
         //此时不能传data里的pic(base64字符串),而是提交服务器返回的图片地址
-        window.console.log('拿到了服务器回传的图片地址：'+picPath)
-        commit('addProduct',{...data,pic:picPath})
+        // window.console.log('拿到了服务器回传的图片地址：'+picPath)
+        //新增时，尝试不提交到本地，要提交也要提交服务器返回的，否则就不会含有 id/userId等值，导致报错
+        commit('addProduct',backData)
         window.console.log(msg)
       }
     })
@@ -61,7 +62,9 @@ const actions = {
   },
   updateProduct({commit},data){
     product.updateProduct(data,({code,msg})=>{
+      //此时不能传data里的pic(base64字符串),而是提交服务器返回的图片地址
       if(code == 1){
+        //更新时，可以提交data,因为此时dada中含有 id/userId等字段
         commit('editProduct',data)
         window.console.log(msg)
       }
