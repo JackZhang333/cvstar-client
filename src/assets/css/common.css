@@ -1,0 +1,15 @@
+* {
+    margin:0;
+    padding:0;
+    user-select: none;
+    box-sizing: border-box;
+}
+a {
+    color: #108cee;
+}
+a:hover {
+    color:#47adfd;
+}
+a:active {
+    color:#0a65ca;
+}
