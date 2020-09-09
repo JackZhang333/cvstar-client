@@ -1,6 +1,6 @@
 <template>
   <div class="no-data" v-if="dataSource? dataSource.length == 0 : noDataProps.dataSource.length==0">
-    <img src="../assets/no-data.png" />
+    <div class="nodata-image"></div>
     <p>
       {{noDataProps.msg}}
       <a href="#" @click.prevent="noDataHandler">{{noDataProps.action}}</a>
@@ -35,9 +35,11 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.no-data img {
+.nodata-image {
   width: 440px;
   height: 300px;
+  background: url('../assets/nodata.png');
+  background-size: 440px;
 }
 .no-data p {
   margin-top: 20px;
