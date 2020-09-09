@@ -16,6 +16,8 @@
 
 import HomeSidebar from '../pagecomps/HomeSidebar'
 import HomeTopbar from '../pagecomps/HomeTopbar'
+import {mapActions} from 'vuex'
+
     export default {
         name:'home',
         components:{ HomeSidebar, HomeTopbar},
@@ -27,7 +29,12 @@ import HomeTopbar from '../pagecomps/HomeTopbar'
             if(userInfos){
                 this.$store.commit('acount/toLogin',JSON.parse(userInfos))
             }
+            //初始化产品数据
+            this.getAllProducts()
             
+        },
+        methods:{
+            ...mapActions('products',['getAllProducts'])
         },
         //添加单组件的路由守卫
         beforeRouteEnter(to,from,next){
