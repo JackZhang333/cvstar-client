@@ -87,7 +87,8 @@ import Kaiguan from "../components/Kaiguan";
 import CRadios from "../components/CRadios";
 import InputSelect from "../components/InputSelect";
 import { mapGetters, mapActions } from 'vuex';
-import defaultPic from '../assets/product-default.png'
+
+// import defaultPic from '../assets/product-default.png'
 
 let defaultModel = {
         type: "有码商品",
@@ -99,7 +100,7 @@ let defaultModel = {
         price: "",
         stock: "",
         quickAdd: false,
-        pic:null
+        pic:''
       }
 
 export default {
@@ -160,8 +161,14 @@ export default {
         'price':'售价',
         'pPrice':'进价',
         'barCode':'商品编码',
-        'categary':'商品分类'
+        'categary':'商品分类',
+        'pic':'商品图片'
       }
+      //如果没有上传图片则，自动上传一只本地的默认图片
+      // if(this.model.pic == ''){
+      //   window.console.log('没有上传图片：'+defaultPic)
+      //   this.model.pic = defaultPic
+      // }
       //校验对应的数据模型各属性值是否为空字符串，如果是就提醒用户填写并返回false不关闭全屏弹窗
       for (let k in this.model){
         if(this.model[k]===''){
@@ -170,11 +177,11 @@ export default {
           return false
         }
       }
-      if(this.model.pic == null){
-        this.model.pic = defaultPic
-      }
+      
       //如果填写的数据完整，则通过 mutation 提交产品信息
       if(isComplete){
+
+        window.console.log('上传的图片：'+this.model.pic)
         this.addProduct(this.model)
         this.$feedback('新增成功')
         this.model = {...defaultModel}

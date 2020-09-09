@@ -13,7 +13,7 @@ const mutations = {
     //删除、新增、编辑商品列表
     removeProduct(state,payload){
         window.console.log('接受到了删除产品的通知'+payload)
-        let index = state.products.findIndex(v=>v.barCode==payload)
+        let index = state.products.findIndex(v=>v.id==payload)
         state.products.splice(index,1)
     },
     addProduct(state,payload){

@@ -76,7 +76,7 @@ export default {
     
   },
   created(){
-      console.log('vue对象被生成了')
+      // console.log('vue对象被生成了')
   },
 
 };
