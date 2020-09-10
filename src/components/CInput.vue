@@ -7,6 +7,7 @@
       :value="value" @change="inputHandler"
       :style = '{width:inputWidth}'
       autocomplete="off"
+      maxlength="50"
       />
       <slot></slot>
     </div>

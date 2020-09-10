@@ -6,6 +6,7 @@
       class="input-item"
       v-model="otherData"
       :placeholder="'请输入'+isSingle.otherName"
+      maxlength="50"
     />
 
     <input
@@ -14,6 +15,7 @@
       :placeholder="'请输入'+inputProps.placeholder"
       v-model="data"
       @keypress.enter="actionHandler"
+      maxlength="50"
     />
 
     <div class="search-button" :style="{width:inputProps.btnWidth}" @click="actionHandler">
