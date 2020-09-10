@@ -36,7 +36,7 @@
           />
           <img
             ref="verifyImage"
-            src="http://localhost:3000/api/login/verify_image"
+            :src="verifyImage"
             @click="verifyImageClick"
             class="verify-image"
           />
@@ -51,22 +51,25 @@
 
 <script>
 import acount from "../api/acount";
-
+import env from '../envirenment'
 export default {
   data() {
     return {
       msg: "",
+      verifyImage:env +'/api/login/verify_image'
     };
   },
   methods: {
     verifyImageClick(){
-      this.$refs.verifyImage.src = 'http://localhost:3000/api/login/verify_image?time' + new Date()
+      //上传服务器时，需要手动修改请求的ip地址
+      this.$refs.verifyImage.src = env + '/api/login/verify_image?time' + new Date()
     },
     submitHandler(e) {
       //保存当前实例对象，在后面的异步请求监听函数中可用
       let self = this;
-      let { name, password } = e.target;
-      acount.toLogin({ name: name.value, password: password.value }, (data) => {
+      let { name, password,verifyImage } = e.target;
+      window.console.log(name.value,password.value,verifyImage.value)
+      acount.toLogin({ name: name.value, password: password.value,verifyImage:verifyImage.value }, (data) => {
         let { code, msg, token, userInfos } = data;
         if (code == 200) {
           //如果登录成功则跳转到home页

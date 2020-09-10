@@ -28,30 +28,53 @@
           v-model="confirmPassword"
           name="confirmPassword" class="item-input" placeholder="请再次确认密码" autocomplete="off"/>
         </div>
+        <div class="item-wrapper">
+          <span class="icon-verify input-icon"></span>
+          <input
+            type="text"
+            name="verifyImage"
+            class="verify-input"
+            placeholder="请输入图片验证码"
+            autocomplete="off"
+            v-model="model.verifyImage"
+          />
+          <img
+            ref="verifyImage"
+            :src="verifyImage"
+            @click="verifyImageClick"
+            class="verify-image"
+          />
+        </div>
         <input type="submit" value="注册" class="item-submit"/>
       </form>
       <router-link to="/login" class="to-login">登录已有账户</router-link>
     </div>
-    <p class="copy-right">copyright  2020 杭州便利星信息科技有限公司</p>
+    <p class="copy-right">copyright 2020 杭州便利星信息科技有限公司 浙ICP备19025640</p>
   </div>
 </template>
 
 <script>
 import acount from '../api/acount'
-
+import env from '../envirenment'
 export default {
   data() {
     return {
+      verifyImage:env +'/api/login/verify_image',
       msg: "",
       model:{
         userName:'',
         password:'',
-        storeName:''
+        storeName:'',
+        verifyImage:''
       },
       confirmPassword:'',
     };
   },
   methods: {
+    verifyImageClick(){
+      //上传服务器时，需要手动修改请求的ip地址
+      this.$refs.verifyImage.src = env + '/api/login/verify_image?time' + new Date()
+    },
     submitHandler() {
       //校验数据的完整性及两次输入的密码是否一致
       window.console.log('用户填写的数据：',this.model)
@@ -70,6 +93,7 @@ export default {
               this.$router.push('/login')
               window.console.log(msg)
             }else{
+              this.confirmPassword = ''
               window.console.log(msg)
               for (let k in this.model){
                 this.model[k] = ''
@@ -96,7 +120,7 @@ export default {
 }
 .register-container {
   width: 360px;
-  margin: 100px auto;
+  margin: 30px auto;
 }
 .cvs-logo {
   width: 100%;
@@ -126,6 +150,25 @@ export default {
 
     padding-left: 48px;
 }
+.verify-input {
+  width: 230px;
+  height: 40px;
+  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  outline: none;
+  caret-color: #108cee;
+  font-size: 16px;
+
+  padding-left: 48px;
+}
+.verify-image {
+  float:right;
+  width: 120px;
+  height: 40px;
+  background: pink;
+  margin-left: 10px;
+}
 .item-input:hover {
     border: 1px solid #47adfd;
 }
@@ -134,6 +177,7 @@ export default {
 }
 .item-wrapper {
     position: relative;
+    width: 360px;
     margin-bottom: 10px;
 }
 .input-icon {
@@ -151,6 +195,9 @@ export default {
 }
 .icon-pwd {
     background-position-y: -48px;
+}
+.icon-verify{
+  background-position-y: -72px;
 }
 .item-submit {
     outline: none;

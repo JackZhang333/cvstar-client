@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default {
-    toLogin:async ({name,password},cb)=>{
-    let {data} = await axios.get(`/api/login/?name=${name}&&password=${password}`)
+    toLogin:async ({name, password, verifyImage},cb)=>{
+    let {data} = await axios.get(`/api/login/?name=${name}&&password=${password}&&verifyImage=${verifyImage}`)
     cb(data)
 },
     toRegister:async(user,cb)=>{
