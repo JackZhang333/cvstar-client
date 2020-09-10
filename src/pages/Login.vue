@@ -68,8 +68,33 @@ export default {
       //保存当前实例对象，在后面的异步请求监听函数中可用
       let self = this;
       let { name, password,verifyImage } = e.target;
-      window.console.log(name.value,password.value,verifyImage.value)
-      acount.toLogin({ name: name.value, password: password.value,verifyImage:verifyImage.value }, (data) => {
+      //校验数据的完整性，和正确性
+      if(name.value!=''&&password.value!=''&&verifyImage.name!=''){
+        //校验name是否为手机
+        const isPhone = /^1\d{10}$/.test(name.value)
+        //校验密码的长度
+        const okLength = /^\w{6,20}$/.test(password.value)
+        const okVerify = /^\w{4}$/.test(verifyImage.value)
+
+        if(isPhone&&okLength&&okVerify){
+          //去登录
+          toLogin()
+        }else if(!isPhone) {
+          this.$toast({msg:'请填写正确的手机号',duration:2})
+          return
+        }else if(!okLength){
+          this.$toast({msg:'密码格式错误',duration:2})
+          return
+        }else if(!okVerify){
+           this.$toast({msg:'验证码格式错误',duration:2})
+           return
+        }
+        
+      }else {
+        this.$toast({msg:'请填写完整的数据',duration:2})
+      }
+      function toLogin(){ 
+        acount.toLogin({ name: name.value, password: password.value,verifyImage:verifyImage.value }, (data) => {
         let { code, msg, token, userInfos } = data;
         if (code == 200) {
           //如果登录成功则跳转到home页
@@ -94,9 +119,13 @@ export default {
           //设置本地储存token
           localStorage.setItem("token", "");
           alert(msg);
-          e.target.reset();
+          // e.target.reset();
         }
       });
+        // window.console.log(name.value,password.value,verifyImage.value)
+      }
+      
+     
     },
   },
 };
