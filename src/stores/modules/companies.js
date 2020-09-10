@@ -6,7 +6,7 @@ const state = ()=>({
 
 const mutations = {
     addCompany(state,company){
-        state.companies.splice(state.companies.length-1,0,company)
+        state.companies.unshift(company)
     },
     removeCompany(state,id){
         let index = state.companies.findIndex(v=>v.id == id)
@@ -23,9 +23,10 @@ const actions = {
         })
     },
     addCompany({commit,rootState},c){
-        company.addCompany({userId:rootState.acount.userId,...c},({code,msg})=>{
+        company.addCompany({userId:rootState.acount.userId,...c},({code,msg,backData})=>{
             if(code==1){
-                commit('addCompany',c)
+                //把服务器返回的对象提交给数据状态，避免产生缺少 ID 的对象，引发删除错误
+                commit('addCompany',backData)
                 window.console.log(msg)
             }
         })

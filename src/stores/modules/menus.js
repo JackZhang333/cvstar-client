@@ -29,6 +29,7 @@ const actions = {
     addMenu:({commit,rootState},data)=>{
         // window.console.log('数据moduel接受到了这条信息'+data)
         //请求服务器，新建一条菜单数据，如果新建成功。则在本地状态也增加一条
+        //通过 name 删除，而非 id 所以不会引发错误
         menu.addMenu({userId:rootState.acount.userId,name:data},({code,msg})=>{
             if(code==1){
                 commit('addMenu',data)
