@@ -8,7 +8,7 @@ module.exports = {
     devServer: {
       proxy: {
         '/api': {
-          target: proEnv,
+          target: testEnv,
           changeOrigin: true,
           secure: false
         },
