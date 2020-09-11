@@ -1,5 +1,5 @@
 
-const env = 'http://localhost:3000'
-//build打包文件时使用生产环境的地址
-// const env = 'http://121.196.189.48'
+// const env = 'http://localhost:3000'
+//build打包文件时使用生产环境的地址,用于请求验证图片
+const env = 'http://121.196.189.48:3000'
 export default env
