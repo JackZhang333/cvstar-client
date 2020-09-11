@@ -118,11 +118,11 @@ export default {
                 this.$router.push("/login");
                 window.console.log(msg);
               } else {
-                this.confirmPassword = "";
+                // this.confirmPassword = "";
                  this.$toast({ msg, duration: 2 });
-                for (let k in this.model) {
-                  this.model[k] = "";
-                }
+                // for (let k in this.model) {
+                //   this.model[k] = "";
+                // }
               }
             });
           } else {
