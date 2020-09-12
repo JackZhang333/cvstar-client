@@ -118,13 +118,14 @@ export default {
 
 <style lang="css" scoped>
 .quick-add-content {
-  height: 100%;
+  height: calc(100vh - 60px);
 }
 .quick-add-sidebar {
   float: left;
   width: 120px;
-  height: 100%;
+  height: calc(100vh - 60px);
   background: #041624;
+  /* background: #009924; */
   color: #fff;
   line-height: 48px;
   font-size: 20px;
