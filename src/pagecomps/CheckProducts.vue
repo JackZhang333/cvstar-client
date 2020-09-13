@@ -183,7 +183,7 @@ export default {
   font-size: 36px;
 }
 .check-no-data {
-  margin-top: 120px;
+  margin-top: 20px;
 }
 .test-div {
   display: none;

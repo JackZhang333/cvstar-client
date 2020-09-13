@@ -181,7 +181,7 @@ export default {
       //如果填写的数据完整，则通过 mutation 提交产品信息
       if(isComplete){
 
-        window.console.log('上传的图片：'+this.model.pic)
+        // window.console.log('上传的图片：'+this.model.pic)
         this.addProduct(this.model)
         this.$feedback('新增成功')
         this.model = {...defaultModel}

@@ -77,7 +77,17 @@ const getters = {
 
         return (data)=>{
           //返回名称或编码中含有关键词的商品对象
-          return state.products.find(v=>v.barCode.includes(data)||v.name.includes(data))
+          // window.console.log('商品库中第一个商品的编码：',state.products[0].barCode)
+          // window.console.log('传入的商品编码：',data)
+          return state.products.find(
+            (v) => {
+              // window.console.log('逐个检验的商品编码：',v.barCode)
+              return (
+                v.name.includes(data) ||
+                v.barCode.includes(data)
+              );
+            }
+          )
   
         }
       },

@@ -1,7 +1,7 @@
 import acount from '../../api/acount'
 
 const state = ()=>({
-    isLogin: false,
+    isLogin: true,
     storeName: '金旺福便利超市',
     acount:'13221059343',
     userId:'',
