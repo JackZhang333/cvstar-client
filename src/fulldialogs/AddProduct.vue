@@ -15,15 +15,16 @@
           label="商品类型"
           :checked.sync="model.type"
         />
-        <c-input
+        <barcode-search
           class="product-code"
+          @searchProduct = "getCloudProduct"
           type="text"
           :name='codeType'
           prop="productCode"
           :value.sync="model.barCode"
         >
         <a href="#" v-show="model.type == '无码商品'" @click="createSystemCode">系统生成</a>
-        </c-input>
+        </barcode-search>
         <c-input
           class="product-name"
           type="text"
@@ -82,11 +83,13 @@
 
 import FullDialog from "../pages/FullDialog";
 import CInput from "../components/CInput";
+import BarcodeSearch from "../components/BarcodeSearch";
 import Upload from "../components/Upload";
 import Kaiguan from "../components/Kaiguan";
 import CRadios from "../components/CRadios";
 import InputSelect from "../components/InputSelect";
 import { mapGetters, mapActions } from 'vuex';
+import Products from '../api/products'
 
 // import defaultPic from '../assets/product-default.png'
 
@@ -111,6 +114,7 @@ export default {
     Kaiguan,
     CRadios,
     InputSelect,
+    BarcodeSearch,
   },
   data() {
     return {
@@ -131,6 +135,24 @@ export default {
     },
   },
   methods: {
+    //从云端商品库搜索商品然后填写到默认数据中
+    getCloudProduct(value){
+      //请求获取商品信息的api
+      //  window.console.log('将要请求云端的数据：',value)
+      Products.getCloudProduct({barCode:value},(res)=>{
+        // window.console.log('云端获取的数据',res)
+        //把云端数据解构出来，赋值给表单
+        const {msg,code} = res
+        if(code == 1){
+          this.$toast({msg,duration:1})
+          const {pic,barCode,productName:name,sPrice:price,pPrice,categary,spec} = res.product
+          // console.log(pic,barCode,name,price,pPrice,categary)
+          this.model = {...this.model,pic,barCode,name,price,pPrice,categary,spec}
+        }
+        
+      })
+
+    },
     //系统自动生产编码
     createSystemCode(){
       let now = new Date().getTime()
@@ -142,18 +164,8 @@ export default {
       this.$refs.fullDialog.open();
     },
     submitInfos() {
-      // console.log("提交编辑后的产品信息");
+      
       let isComplete = true
-      //判断每个输入框是否为空，如果未空。则提示用户输入并返回false,告诉子组件fulldialog不要关闭
-      // window.console.log('输入框组合：'+this.$refs.cinput.name)
-      // this.$refs.input.forEach(v=>{
-      //   if(v.value == ''){
-      //     this.$toast({msg:`请填写${v.name}`,duration:2})
-      //     isComplete = false
-      //     return false
-      //   }
-      // })
-      //新建一个名称和属性的健值对，方便提醒用户正确的填写
       let names = {
         'stock':'库存',
         'name':'商品名称',
@@ -164,11 +176,7 @@ export default {
         'categary':'商品分类',
         'pic':'商品图片'
       }
-      //如果没有上传图片则，自动上传一只本地的默认图片
-      // if(this.model.pic == ''){
-      //   window.console.log('没有上传图片：'+defaultPic)
-      //   this.model.pic = defaultPic
-      // }
+    
       //校验对应的数据模型各属性值是否为空字符串，如果是就提醒用户填写并返回false不关闭全屏弹窗
       for (let k in this.model){
         if(this.model[k]===''){

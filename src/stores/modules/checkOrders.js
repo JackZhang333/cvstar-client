@@ -25,7 +25,7 @@ const actions = {
         checkOrder.addOrder(order,({code,msg})=>{
             if(code==1){
                 commit('addCheck',order)
-                window.console.log(msg)
+                window.console.log(msg,order)
             }
         })
     }

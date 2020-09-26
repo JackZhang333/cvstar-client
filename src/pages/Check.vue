@@ -174,6 +174,7 @@ height: 10px;
 .right-bottom {
   height: 120px;
   width: 100%;
+  cursor: pointer;
 }
 .right-bottom {
   background: #108cee;

@@ -16,5 +16,9 @@ export default {
     async updateProduct(product,cb){
         let {data} = await axios.post('/api/updateProduct',product)
         cb(data)
+    },
+    async getCloudProduct(barcode,cb){
+        let {data} = await axios.post('/api/getCloudProduct',barcode)
+        cb(data)
     }
 }

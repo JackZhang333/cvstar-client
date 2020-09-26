@@ -83,7 +83,7 @@ export default {
       return {totalPrice,...v}
       })
       let userId = this.userId
-      // window.console.log('新增流水的商品：'+products)
+      window.console.log('新增流水的商品：',products)
       this.addCheck({userId,orderCode,orderTime,products})
       //后期补充减商品库存的逻辑
     },

@@ -2,9 +2,12 @@
   
     <div class="cinput">
       <label for="prop">{{name}}:</label>
-      <input :type="type" :name="prop" 
+      <input 
+      :type="type" 
+      :name="prop" 
       :placeholder="placeholder" 
-      :value="value" @change="inputHandler"
+      :value="value" 
+      @change="inputHandler"
       :style = '{width:inputWidth}'
       autocomplete="off"
       maxlength="50"

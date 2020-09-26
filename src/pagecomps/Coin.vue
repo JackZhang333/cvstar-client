@@ -32,6 +32,7 @@
         height: 124px;
         background: url('../assets/coin-nomal.png') no-repeat;
         background-size: 129px;
+        cursor: pointer;
     }
     .cashNum {
         position: absolute;

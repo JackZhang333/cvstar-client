@@ -81,7 +81,7 @@ export default {
     async confirmHandler() {
       //根据返回的值判断，是否提交了完整的表单。提交了完整的表单就可以关闭弹窗了
       let wouldCloce = await this.confirm();
-      window.console.log('可以继续关闭弹窗吗？'+wouldCloce)
+      // window.console.log('可以继续关闭弹窗吗？'+wouldCloce)
       if(wouldCloce){
         this.close();
       }

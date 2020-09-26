@@ -41,6 +41,7 @@ export default {
   line-height: 28px;
   font-size: 11px;
   color: #666;
+  cursor: pointer;
 }
 .btn-image {
   position: relative;
